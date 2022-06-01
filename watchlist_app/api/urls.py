@@ -4,5 +4,6 @@ from watchlist_app.api import views
 
 urlpatterns = [
     path('list/', views.WatchlistCollection.as_view(), name = 'watchlistcollection'),
-    path('<int:pk>', views.WatchlistItem.as_view(), name = 'watchlistitem')
+    path('<int:pk>', views.WatchlistItem.as_view(), name = 'watchlistitem'),
+    path('platform/', views.StreamingPlatform.as_view(), name = 'streamingplatform'),
 ]

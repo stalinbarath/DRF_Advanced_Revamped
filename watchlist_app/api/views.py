@@ -5,7 +5,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from watchlist_app.api import serializers
-from watchlist_app.models import Watchlist
+from watchlist_app.models import Watchlist, Platform
 
 class WatchlistCollection(APIView):
 
@@ -48,3 +48,18 @@ class WatchlistItem(APIView):
             return Response({'error': 'Item not found'}, status=status.HTTP_400_BAD_REQUEST)
         watchlistitem.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+class StreamingPlatform(APIView):
+
+    def get(self, request):
+        platform = Platform.objects.all()
+        serializer = serializers.PlatformSerializer(platform, many=True)
+        return Response(serializer.data)
+
+    def post(self, request):
+        serializer = serializers.PlatformSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        else:
+            return Response(serializer.data, status=status.HTTP_400_BAD_REQUEST)
