@@ -14,7 +14,7 @@ class PlatformSerializer(serializers.HyperlinkedModelSerializer):
         model = Platform
         fields = "__all__"
 
-class ReviewSerializer(serializers.ModelField):
+class ReviewSerializer(serializers.ModelSerializer):
     class Meta:
         model = Review
         fields = "__all__"
